@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BrightInterview — Practice & Improve</title>
+  <meta name="description" content="BrightInterview: A beginner-friendly interview practice tool with live transcript, emotion heuristics, and simple backend to save scores." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <img src="https://interm.ai/logo.png" alt="logo" class="logo">
+        <div>
+          <h1>BrightInterview</h1>
+          <div class="tag">Practice. Measure. Improve — Simple & Friendly</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#demo">Demo</a>
+        <a href="#how">How it works</a>
+        <a href="#report">Report</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-left">
+          <h2>Practice interviews with live feedback</h2>
+          <p class="lead">Simple, beginner-friendly tool: webcam + mic, live transcript, basic emotion heuristics, and server-backed score saving.</p>
+          <div class="cta">
+            <button class="btn" id="tryDemoBtn">Try Demo</button>
+            <button class="btn-muted" id="learnMoreBtn">How it works</button>
+          </div>
+          <ul class="benefits">
+            <li>Works on desktop, tablet, and phone (use secure context / localhost).</li>
+            <li>Built with simple code — easy to learn and extend.</li>
+            <li>Scores are saved to backend for review and suggestions.</li>
+          </ul>
+        </div>
+        <div class="hero-right card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs41BB5x8au_vBNFrKZ41pxjPW6AgTjPRi1g&s" alt="preview" class="hero-image">
+          <div class="mini-meters">
+            <div class="meter small-meter">
+              <div>Confidence <span id="miniConfidence" class="miniVal">70%</span></div>
+              <div class="meter-bar"><div id="miniConfidenceFill" class="meter-fill" style="width:70%"></div></div>
+            </div>
+            <div class="meter small-meter">
+              <div>Stress <span id="miniStress" class="miniVal">30%</span></div>
+              <div class="meter-bar"><div id="miniStressFill" class="meter-fill warm" style="width:30%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo" class="demo-section">
+        <div class="card">
+          <h3>Live Demo</h3>
+          <p class="muted">Open via <strong>localhost</strong> or HTTPS. Mobile: allow camera & mic when prompted.</p>
+
+          <div class="demo-grid">
+            <div>
+              <div class="video-wrap" id="videoWrap">
+                <video id="localVideo" autoplay playsinline muted></video>
+                <div id="videoOverlay" class="overlay">Click <strong>Start</strong> — Allow camera & mic</div>
+              </div>
+
+              <div class="controls">
+                <button id="startBtn" class="btn">Start</button>
+                <button id="stopBtn" class="btn-muted" disabled>Stop</button>
+                <button id="nextQBtn" class="btn-muted">Next Q</button>
+                <select id="difficulty" title="Difficulty">
+                  <option value="basic">Basic</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+
+              <div class="card light">
+                <div class="label small">Question</div>
+                <div id="questionText" class="question">Tell me about yourself.</div>
+              </div>
+
+              <div class="card light">
+                <div class="label small">Transcript</div>
+                <pre id="transcriptBox" class="transcript">(No transcript yet)</pre>
+                <div class="row">
+                  <button id="analyzeBtn" class="btn">Analyze & Save</button>
+                  <button id="clearTranscriptBtn" class="btn-muted">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="card">
+                <div class="row space">
+                  <div>
+                    <div class="small">Real-Time Feedback</div>
+                    <div class="title">Live Scores</div>
+                  </div>
+                  <div class="small">Prototype</div>
+                </div>
+
+                <div class="meter live-meter">
+                  <div class="label"><div>Confidence</div><div id="confidenceVal" class="bold">0%</div></div>
+                  <div class="meter-bar"><div class="meter-fill" id="confidenceFill"></div></div>
+                </div>
+
+                <div class="meter live-meter">
+                  <div class="label"><div>Stress</div><div id="stressVal" class="bold">0%</div></div>
+                  <div class="meter-bar"><div class="meter-fill warm" id="stressFill"></div></div>
+                </div>
+
+                <div class="meter live-meter">
+                  <div class="label"><div>Honesty</div><div id="honestyVal" class="bold">0%</div></div>
+                  <div class="meter-bar"><div class="meter-fill calm" id="honestyFill"></div></div>
+                </div>
+
+                <div class="suggestions" id="suggestionsBox">
+                  <strong>Suggestions:</strong>
+                  <ul id="suggestionsList">
+                    <li>Speak clearly in short sentences.</li>
+                    <li>Use an example from your experience.</li>
+                    <li>Take a small pause before answering.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card images-grid">
+                
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVdfOEC2zLPD9qyFerZEIFUAt7RKY6g6FkZg&s" alt="scene 1">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHGQ_fRo2kMa80Z1la-SeO6G_6sqlHU7vWHQ&s" alt="scene 2">
+                <img src="https://framerusercontent.com/images/afHh08ruBmUccMJx47s9NaUxuw4.png" alt="scene 3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqsmm6uFqC2_VbFEpFwrT_T0PGKnKd6-Zzjw&s" alt="scene 4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyYVcOOu4t9MDnRLvsSFqoratofKp2grrbdg&s" alt="scene 5">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ_XkvqUa58R19EyW-NwK58v_hdrsryUDsbA&s" alt="scene 6">
+              </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="how" class="card how">
+        <h3>How it works (simple)</h3>
+        <ol>
+          <li>Click <strong>Start</strong>. Allow camera and microphone.</li>
+          <li>Speak your answer. The page shows live transcript using browser speech API.</li>
+          <li>Click <strong>Analyze & Save</strong> — results are stored on server and you get suggestions.</li>
+        </ol>
+        <p class="muted">Server stores only simple scores for demo (no personal text). For production, add authentication and secure storage.</p>
+      </section>
+
+      <section id="report" class="card how">
+        <h3>Server Report (Saved Scores)</h3>
+        <div id="reportArea">No saved sessions yet.</div>
+        <div style="margin-top:8px">
+          <button id="fetchReportBtn" class="btn-muted">Fetch Report</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer card">
+      <div>Contact: <a href="mailto:team@brightinterview.app">team@brightinterview.app</a></div>
+      <div class="muted">Prototype — no data leaves your browser except saved numeric scores.</div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
