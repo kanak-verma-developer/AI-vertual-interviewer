@@ -1,174 +1,2268 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BrightInterview — Practice & Improve</title>
-  <meta name="description" content="BrightInterview: A beginner-friendly interview practice tool with live transcript, emotion heuristics, and simple backend to save scores." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Virexa AI — Intelligent Interview Coach</title>
+
+  <meta
+    name="description"
+    content="Virexa AI is an intelligent interview practice platform using speech recognition and Gemini AI to analyse interview answers."
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
 </head>
+
+
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="brand">
-        <img src="https://interm.ai/logo.png" alt="logo" class="logo">
-        <div>
-          <h1>BrightInterview</h1>
-          <div class="tag">Practice. Measure. Improve — Simple & Friendly</div>
-        </div>
-      </div>
-      <nav class="nav">
-        <a href="#demo">Demo</a>
-        <a href="#how">How it works</a>
-        <a href="#report">Report</a>
-      </nav>
-    </header>
 
-    <main>
-      <section class="hero" id="top">
-        <div class="hero-left">
-          <h2>Practice interviews with live feedback</h2>
-          <p class="lead">Simple, beginner-friendly tool: webcam + mic, live transcript, basic emotion heuristics, and server-backed score saving.</p>
-          <div class="cta">
-            <button class="btn" id="tryDemoBtn">Try Demo</button>
-            <button class="btn-muted" id="learnMoreBtn">How it works</button>
-          </div>
-          <ul class="benefits">
-            <li>Works on desktop, tablet, and phone (use secure context / localhost).</li>
-            <li>Built with simple code — easy to learn and extend.</li>
-            <li>Scores are saved to backend for review and suggestions.</li>
-          </ul>
-        </div>
-        <div class="hero-right card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs41BB5x8au_vBNFrKZ41pxjPW6AgTjPRi1g&s" alt="preview" class="hero-image">
-          <div class="mini-meters">
-            <div class="meter small-meter">
-              <div>Confidence <span id="miniConfidence" class="miniVal">70%</span></div>
-              <div class="meter-bar"><div id="miniConfidenceFill" class="meter-fill" style="width:70%"></div></div>
-            </div>
-            <div class="meter small-meter">
-              <div>Stress <span id="miniStress" class="miniVal">30%</span></div>
-              <div class="meter-bar"><div id="miniStressFill" class="meter-fill warm" style="width:30%"></div></div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
 
-      <section id="demo" class="demo-section">
-        <div class="card">
-          <h3>Live Demo</h3>
-          <p class="muted">Open via <strong>localhost</strong> or HTTPS. Mobile: allow camera & mic when prompted.</p>
+  <div class="background">
 
-          <div class="demo-grid">
-            <div>
-              <div class="video-wrap" id="videoWrap">
-                <video id="localVideo" autoplay playsinline muted></video>
-                <div id="videoOverlay" class="overlay">Click <strong>Start</strong> — Allow camera & mic</div>
-              </div>
+    <div class="grid"></div>
 
-              <div class="controls">
-                <button id="startBtn" class="btn">Start</button>
-                <button id="stopBtn" class="btn-muted" disabled>Stop</button>
-                <button id="nextQBtn" class="btn-muted">Next Q</button>
-                <select id="difficulty" title="Difficulty">
-                  <option value="basic">Basic</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
-                </select>
-              </div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-              <div class="card light">
-                <div class="label small">Question</div>
-                <div id="questionText" class="question">Tell me about yourself.</div>
-              </div>
+    <span class="particle p1"></span>
+    <span class="particle p2"></span>
+    <span class="particle p3"></span>
+    <span class="particle p4"></span>
+    <span class="particle p5"></span>
+    <span class="particle p6"></span>
 
-              <div class="card light">
-                <div class="label small">Transcript</div>
-                <pre id="transcriptBox" class="transcript">(No transcript yet)</pre>
-                <div class="row">
-                  <button id="analyzeBtn" class="btn">Analyze & Save</button>
-                  <button id="clearTranscriptBtn" class="btn-muted">Clear</button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="card">
-                <div class="row space">
-                  <div>
-                    <div class="small">Real-Time Feedback</div>
-                    <div class="title">Live Scores</div>
-                  </div>
-                  <div class="small">Prototype</div>
-                </div>
-
-                <div class="meter live-meter">
-                  <div class="label"><div>Confidence</div><div id="confidenceVal" class="bold">0%</div></div>
-                  <div class="meter-bar"><div class="meter-fill" id="confidenceFill"></div></div>
-                </div>
-
-                <div class="meter live-meter">
-                  <div class="label"><div>Stress</div><div id="stressVal" class="bold">0%</div></div>
-                  <div class="meter-bar"><div class="meter-fill warm" id="stressFill"></div></div>
-                </div>
-
-                <div class="meter live-meter">
-                  <div class="label"><div>Honesty</div><div id="honestyVal" class="bold">0%</div></div>
-                  <div class="meter-bar"><div class="meter-fill calm" id="honestyFill"></div></div>
-                </div>
-
-                <div class="suggestions" id="suggestionsBox">
-                  <strong>Suggestions:</strong>
-                  <ul id="suggestionsList">
-                    <li>Speak clearly in short sentences.</li>
-                    <li>Use an example from your experience.</li>
-                    <li>Take a small pause before answering.</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="card images-grid">
-                
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVdfOEC2zLPD9qyFerZEIFUAt7RKY6g6FkZg&s" alt="scene 1">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHGQ_fRo2kMa80Z1la-SeO6G_6sqlHU7vWHQ&s" alt="scene 2">
-                <img src="https://framerusercontent.com/images/afHh08ruBmUccMJx47s9NaUxuw4.png" alt="scene 3">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqsmm6uFqC2_VbFEpFwrT_T0PGKnKd6-Zzjw&s" alt="scene 4">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyYVcOOu4t9MDnRLvsSFqoratofKp2grrbdg&s" alt="scene 5">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ_XkvqUa58R19EyW-NwK58v_hdrsryUDsbA&s" alt="scene 6">
-              </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <section id="how" class="card how">
-        <h3>How it works (simple)</h3>
-        <ol>
-          <li>Click <strong>Start</strong>. Allow camera and microphone.</li>
-          <li>Speak your answer. The page shows live transcript using browser speech API.</li>
-          <li>Click <strong>Analyze & Save</strong> — results are stored on server and you get suggestions.</li>
-        </ol>
-        <p class="muted">Server stores only simple scores for demo (no personal text). For production, add authentication and secure storage.</p>
-      </section>
-
-      <section id="report" class="card how">
-        <h3>Server Report (Saved Scores)</h3>
-        <div id="reportArea">No saved sessions yet.</div>
-        <div style="margin-top:8px">
-          <button id="fetchReportBtn" class="btn-muted">Fetch Report</button>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer card">
-      <div>Contact: <a href="mailto:team@brightinterview.app">team@brightinterview.app</a></div>
-      <div class="muted">Prototype — no data leaves your browser except saved numeric scores.</div>
-    </footer>
   </div>
 
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="header">
+
+    <div class="header-inner">
+
+      <a
+        href="#home"
+        class="brand"
+      >
+
+        <div class="brand-icon">
+
+          <span class="logo-orbit"></span>
+
+          <span class="logo-core">
+            V
+          </span>
+
+          <span class="logo-dot"></span>
+
+        </div>
+
+
+        <div class="brand-text">
+
+          <strong>
+            Virexa AI
+          </strong>
+
+          <small>
+            Intelligent Interview Coach
+          </small>
+
+        </div>
+
+      </a>
+
+
+      <nav class="nav">
+
+        <a
+          href="#home"
+          class="active"
+        >
+          Home
+        </a>
+
+        <a href="#intelligence">
+          Intelligence
+        </a>
+
+        <a href="#demo">
+          Interview
+        </a>
+
+        <a href="#analytics">
+          Analytics
+        </a>
+
+        <a href="#how">
+          How It Works
+        </a>
+
+      </nav>
+
+
+      <div class="header-status">
+
+        <span class="status-dot"></span>
+
+        <span>
+          AI Online
+        </span>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main id="home">
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+
+          <span class="eyebrow-dot"></span>
+
+          AI-POWERED INTERVIEW PRACTICE
+
+        </div>
+
+
+        <h1>
+
+          Practice Smarter.
+
+          <span>
+            Interview Better.
+          </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+          Virexa AI helps you practise interview questions,
+          capture your spoken answers and receive
+          Gemini-powered feedback on your response quality,
+          communication, technical accuracy and relevance.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+          <button
+            class="btn btn-primary"
+            id="tryDemoBtn"
+            type="button"
+          >
+
+            <span>
+              Start Interview
+            </span>
+
+            <span class="btn-arrow">
+              →
+            </span>
+
+          </button>
+
+
+          <button
+            class="btn btn-secondary"
+            id="learnMoreBtn"
+            type="button"
+          >
+
+            Explore Intelligence
+
+          </button>
+
+        </div>
+
+
+        <div class="hero-stats">
+
+          <div class="hero-stat">
+
+            <strong>
+              AI
+            </strong>
+
+            <span>
+              Gemini Evaluation
+            </span>
+
+          </div>
+
+
+          <div class="hero-stat">
+
+            <strong>
+              STT
+            </strong>
+
+            <span>
+              Speech to Text
+            </span>
+
+          </div>
+
+
+          <div class="hero-stat">
+
+            <strong>
+              24/7
+            </strong>
+
+            <span>
+              Interview Practice
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =================================================
+           HERO AI VISUAL
+      ================================================== -->
+
+      <div class="ai-visual">
+
+        <div class="ai-ring ring-1"></div>
+        <div class="ai-ring ring-2"></div>
+        <div class="ai-ring ring-3"></div>
+
+        <div class="neural-line line-1"></div>
+        <div class="neural-line line-2"></div>
+        <div class="neural-line line-3"></div>
+        <div class="neural-line line-4"></div>
+
+        <div class="ai-core">
+
+          <div class="core-inner">
+
+            <span class="core-ai">
+              V
+            </span>
+
+            <span class="core-text">
+              VIREXA AI
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="ai-node node-1"></div>
+        <div class="ai-node node-2"></div>
+        <div class="ai-node node-3"></div>
+        <div class="ai-node node-4"></div>
+        <div class="ai-node node-5"></div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LIVE CAPABILITIES
+    ==================================================== -->
+
+    <section class="live-bar">
+
+      <div class="live-item">
+
+        <span class="live-icon">
+          ✦
+        </span>
+
+        <div>
+
+          <strong>
+            Gemini AI
+          </strong>
+
+          <small>
+            Answer Evaluation
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <div class="live-divider"></div>
+
+
+      <div class="live-item">
+
+        <span class="live-icon">
+          ◉
+        </span>
+
+        <div>
+
+          <strong>
+            Speech Recognition
+          </strong>
+
+          <small>
+            Real-time transcription
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <div class="live-divider"></div>
+
+
+      <div class="live-item">
+
+        <span class="live-icon">
+          ↗
+        </span>
+
+        <div>
+
+          <strong>
+            Performance Analysis
+          </strong>
+
+          <small>
+            Response-based insights
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         AI INTELLIGENCE
+    ==================================================== -->
+
+    <section
+      class="section"
+      id="intelligence"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-tag">
+          01 / INTELLIGENCE
+        </div>
+
+        <h2>
+
+          Your answers go beyond
+
+          <span>
+            simple scoring.
+          </span>
+
+        </h2>
+
+        <p>
+
+          Virexa combines speech-to-text with Gemini AI
+          evaluation to turn your interview responses
+          into useful performance feedback.
+
+        </p>
+
+      </div>
+
+
+      <div class="intelligence-grid">
+
+
+        <article class="intel-card featured-card">
+
+          <div class="card-icon purple">
+            ✦
+          </div>
+
+          <div class="card-number">
+            01
+          </div>
+
+          <h3>
+            Gemini Answer Analysis
+          </h3>
+
+          <p>
+
+            Gemini evaluates the submitted answer against
+            the interview question and returns structured
+            performance metrics and feedback.
+
+          </p>
+
+          <div class="card-line"></div>
+
+          <span class="card-label">
+            GEMINI AI
+          </span>
+
+        </article>
+
+
+
+        <article class="intel-card">
+
+          <div class="card-icon blue">
+            ⌁
+          </div>
+
+          <div class="card-number">
+            02
+          </div>
+
+          <h3>
+            Speech Recognition
+          </h3>
+
+          <p>
+
+            Your spoken response is converted into text
+            through browser speech recognition before
+            being submitted for analysis.
+
+          </p>
+
+          <div class="card-line"></div>
+
+          <span class="card-label">
+            SPEECH TO TEXT
+          </span>
+
+        </article>
+
+
+
+        <article class="intel-card">
+
+          <div class="card-icon cyan">
+            ◉
+          </div>
+
+          <div class="card-number">
+            03
+          </div>
+
+          <h3>
+            Response Clarity
+          </h3>
+
+          <p>
+
+            The transcript is checked for response length,
+            filler-word usage and answer structure to
+            provide clarity-related feedback.
+
+          </p>
+
+          <div class="card-line"></div>
+
+          <span class="card-label">
+            RESPONSE ANALYSIS
+          </span>
+
+        </article>
+
+
+
+        <article class="intel-card">
+
+          <div class="card-icon green">
+            ↗
+          </div>
+
+          <div class="card-number">
+            04
+          </div>
+
+          <h3>
+            Performance Insights
+          </h3>
+
+          <p>
+
+            Your actual evaluation results are displayed
+            as scores, strengths and improvement suggestions
+            after analysis.
+
+          </p>
+
+          <div class="card-line"></div>
+
+          <span class="card-label">
+            AI FEEDBACK
+          </span>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         PIPELINE
+    ==================================================== -->
+
+    <section class="pipeline-section">
+
+      <div class="section-heading center">
+
+        <div class="section-tag">
+          PROCESSING PIPELINE
+        </div>
+
+        <h2>
+
+          Speak.
+
+          <span>
+            Analyse. Improve.
+          </span>
+
+        </h2>
+
+      </div>
+
+
+      <div class="pipeline">
+
+
+        <div class="pipeline-step">
+
+          <div class="pipeline-icon">
+            🎙
+          </div>
+
+          <div>
+
+            <strong>
+              01 — Speak
+            </strong>
+
+            <span>
+              Answer the question
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="pipeline-connector"></div>
+
+
+        <div class="pipeline-step">
+
+          <div class="pipeline-icon">
+            ⌁
+          </div>
+
+          <div>
+
+            <strong>
+              02 — Transcribe
+            </strong>
+
+            <span>
+              Speech becomes text
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="pipeline-connector"></div>
+
+
+        <div class="pipeline-step">
+
+          <div class="pipeline-icon">
+            ✦
+          </div>
+
+          <div>
+
+            <strong>
+              03 — Analyse
+            </strong>
+
+            <span>
+              Gemini evaluates
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="pipeline-connector"></div>
+
+
+        <div class="pipeline-step">
+
+          <div class="pipeline-icon">
+            ↗
+          </div>
+
+          <div>
+
+            <strong>
+              04 — Improve
+            </strong>
+
+            <span>
+              Review your feedback
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         INTERVIEW ROOM
+    ==================================================== -->
+
+    <section
+      class="section interview-section"
+      id="demo"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-tag">
+          02 / INTERVIEW ROOM
+        </div>
+
+        <h2>
+
+          Your personal
+
+          <span>
+            AI interview room.
+          </span>
+
+        </h2>
+
+        <p>
+
+          Select a difficulty level, answer the question
+          using your microphone and analyse your response
+          with Gemini AI.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="interview-workspace">
+
+
+        <!-- =================================================
+             QUESTION PANEL
+        ================================================== -->
+
+        <div class="question-panel">
+
+          <div class="question-top">
+
+            <div>
+
+              <span class="panel-label">
+                AI QUESTION
+              </span>
+
+              <small class="question-subtitle">
+                Interview prompt
+              </small>
+
+            </div>
+
+            <div class="question-badge">
+              LIVE
+            </div>
+
+          </div>
+
+
+          <div class="question-box">
+
+            <span class="quote-mark">
+              “
+            </span>
+
+            <p id="questionText">
+              Start your interview to receive your first question.
+            </p>
+
+          </div>
+
+
+          <!-- CONTROLS -->
+
+          <div class="interview-controls">
+
+            <button
+              class="control-btn primary-control"
+              id="startBtn"
+              type="button"
+            >
+
+              <span>
+                ●
+              </span>
+
+              Start Interview
+
+            </button>
+
+
+            <button
+              class="control-btn"
+              id="stopBtn"
+              type="button"
+              disabled
+            >
+
+              Stop
+
+            </button>
+
+
+            <button
+              class="control-btn"
+              id="nextQBtn"
+              type="button"
+            >
+
+              Next Question →
+
+            </button>
+
+
+            <select
+              id="difficulty"
+              class="difficulty"
+              aria-label="Interview difficulty"
+            >
+
+              <option value="basic">
+                Basic
+              </option>
+
+              <option value="intermediate">
+                Intermediate
+              </option>
+
+              <option value="advanced">
+                Advanced
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- SPEECH STATUS -->
+
+          <div
+            class="speech-status"
+            id="speechStatus"
+          >
+
+            <span class="speech-status-dot"></span>
+
+            <span>
+              Microphone ready
+            </span>
+
+          </div>
+
+
+
+          <!-- TRANSCRIPT -->
+
+          <div class="transcript-section">
+
+            <div class="transcript-header">
+
+              <div>
+
+                <span class="panel-label">
+                  LIVE TRANSCRIPT
+                </span>
+
+                <small>
+                  Speech recognition
+                </small>
+
+              </div>
+
+              <span class="transcript-dot"></span>
+
+            </div>
+
+
+            <div
+              class="transcript-box"
+              id="transcript"
+            >
+
+              Your spoken answer will appear here...
+
+            </div>
+
+
+            <div
+              class="analysis-status"
+              id="analysisStatus"
+              aria-live="polite"
+            ></div>
+
+
+            <div class="transcript-actions">
+
+              <button
+                class="small-btn"
+                id="analyzeBtn"
+                type="button"
+              >
+
+                ✦ Analyse Answer
+
+              </button>
+
+
+              <button
+                class="small-btn ghost"
+                id="clearBtn"
+                type="button"
+              >
+
+                Clear
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             VIREXA AI INTELLIGENCE PANEL
+        ================================================== -->
+
+        <div class="interview-ai-visual">
+
+          <div class="interview-visual-glow glow-one"></div>
+          <div class="interview-visual-glow glow-two"></div>
+
+
+          <div class="ai-visual-header">
+
+            <div>
+
+              <span class="visual-label">
+                VIREXA AI ENGINE
+              </span>
+
+              <strong>
+                Interview Intelligence
+              </strong>
+
+            </div>
+
+
+            <span class="visual-status">
+
+              <i></i>
+
+              AI READY
+
+            </span>
+
+          </div>
+
+
+
+          <div class="visual-stage">
+
+            <div class="neural-grid"></div>
+
+
+            <span class="visual-line visual-line-1"></span>
+            <span class="visual-line visual-line-2"></span>
+            <span class="visual-line visual-line-3"></span>
+            <span class="visual-line visual-line-4"></span>
+
+
+            <div class="interview-ai-core">
+
+              <div class="interview-ai-core-inner">
+
+                <span>
+                  V
+                </span>
+
+                <small>
+                  VIREXA
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <span class="visual-node node-a"></span>
+            <span class="visual-node node-b"></span>
+            <span class="visual-node node-c"></span>
+            <span class="visual-node node-d"></span>
+
+
+            <div class="ai-feature feature-one">
+
+              <span class="feature-icon">
+                ◉
+              </span>
+
+              <div>
+
+                <strong>
+                  Speech Recognition
+                </strong>
+
+                <small>
+                  Listening to response
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <div class="ai-feature feature-two">
+
+              <span class="feature-icon">
+                ✦
+              </span>
+
+              <div>
+
+                <strong>
+                  NLP Analysis
+                </strong>
+
+                <small>
+                  Understanding answer
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <div class="ai-feature feature-three">
+
+              <span class="feature-icon">
+                ↗
+              </span>
+
+              <div>
+
+                <strong>
+                  Smart Scoring
+                </strong>
+
+                <small>
+                  AI performance analysis
+                </small>
+
+              </div>
+
+            </div>
+
+
+            <div class="ai-scan-beam"></div>
+
+
+            <span class="ai-particle particle-a"></span>
+            <span class="ai-particle particle-b"></span>
+            <span class="ai-particle particle-c"></span>
+            <span class="ai-particle particle-d"></span>
+
+          </div>
+
+
+
+          <div class="visual-footer">
+
+            <span class="footer-pulse"></span>
+
+            <span>
+              Gemini-powered interview analysis
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         AI FEEDBACK
+    ==================================================== -->
+
+    <section class="section feedback-section">
+
+      <div class="section-heading">
+
+        <div class="section-tag">
+          03 / AI FEEDBACK
+        </div>
+
+        <h2>
+
+          See what your
+
+          <span>
+            answer achieved.
+          </span>
+
+        </h2>
+
+        <p>
+
+          Scores are populated after a successful Gemini
+          evaluation of your submitted answer.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="feedback-dashboard">
+
+
+        <!-- OVERALL SCORE -->
+
+        <div class="score-main">
+
+          <div class="score-header">
+
+            <span>
+              OVERALL AI SCORE
+            </span>
+
+            <span class="ai-badge">
+              AI
+            </span>
+
+          </div>
+
+
+          <div class="score-circle">
+
+            <div class="score-circle-inner">
+
+              <strong id="overallScore">
+                —
+              </strong>
+
+              <span>
+                / 100
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <p>
+            Score from your latest AI evaluation
+          </p>
+
+        </div>
+
+
+
+        <!-- METRICS -->
+
+        <div class="metrics-panel">
+
+
+          <div class="metric">
+
+            <div class="metric-top">
+
+              <span>
+                Confidence
+              </span>
+
+              <strong id="confidenceVal">
+                —
+              </strong>
+
+            </div>
+
+            <div class="meter">
+
+              <div
+                class="meter-fill purple-fill"
+                id="confidenceFill"
+                style="width:0%"
+              ></div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="metric">
+
+            <div class="metric-top">
+
+              <span>
+                Communication
+              </span>
+
+              <strong id="communicationVal">
+                —
+              </strong>
+
+            </div>
+
+            <div class="meter">
+
+              <div
+                class="meter-fill blue-fill"
+                id="communicationFill"
+                style="width:0%"
+              ></div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="metric">
+
+            <div class="metric-top">
+
+              <span>
+                Answer Clarity
+              </span>
+
+              <strong id="clarityVal">
+                —
+              </strong>
+
+            </div>
+
+            <div class="meter">
+
+              <div
+                class="meter-fill cyan-fill"
+                id="clarityFill"
+                style="width:0%"
+              ></div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <!-- AI COACH -->
+
+      <div class="suggestions-card">
+
+        <div class="suggestion-heading">
+
+          <div class="suggestion-icon">
+            ✦
+          </div>
+
+          <div>
+
+            <span class="panel-label">
+              AI COACH
+            </span>
+
+            <h3>
+              Strengths & Improvements
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="suggestionsBox"
+          class="suggestions-box"
+        >
+
+          <ul id="suggestionsList">
+
+            <li>
+              Complete an interview response to receive
+              AI-generated feedback.
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ANALYTICS
+    ==================================================== -->
+
+    <section
+      class="section analytics-section"
+      id="analytics"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-tag">
+          04 / PERFORMANCE ANALYTICS
+        </div>
+
+        <h2>
+
+          Your performance,
+
+          <span>
+            based on actual results.
+          </span>
+
+        </h2>
+
+        <p>
+
+          Analytics update after your answer is evaluated
+          successfully.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="analytics-grid">
+
+
+        <!-- PERFORMANCE OVERVIEW -->
+
+        <div class="analytics-card large">
+
+          <div class="analytics-card-head">
+
+            <div>
+
+              <span class="panel-label">
+                LATEST EVALUATION
+              </span>
+
+              <h3>
+                Performance Overview
+              </h3>
+
+            </div>
+
+            <span class="trend">
+              AI
+            </span>
+
+          </div>
+
+
+          <div class="bars">
+
+
+            <div class="bar-row">
+
+              <div>
+
+                <span>
+                  Communication
+                </span>
+
+                <strong id="analyticsCommunication">
+                  —
+                </strong>
+
+              </div>
+
+              <div class="analytics-bar">
+
+                <span
+                  id="analyticsCommunicationBar"
+                  style="width:0%"
+                ></span>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="bar-row">
+
+              <div>
+
+                <span>
+                  Technical Accuracy
+                </span>
+
+                <strong id="analyticsTechnical">
+                  —
+                </strong>
+
+              </div>
+
+              <div class="analytics-bar">
+
+                <span
+                  id="analyticsTechnicalBar"
+                  style="width:0%"
+                ></span>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="bar-row">
+
+              <div>
+
+                <span>
+                  Relevance
+                </span>
+
+                <strong id="analyticsRelevance">
+                  —
+                </strong>
+
+              </div>
+
+              <div class="analytics-bar">
+
+                <span
+                  id="analyticsRelevanceBar"
+                  style="width:0%"
+                ></span>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="bar-row">
+
+              <div>
+
+                <span>
+                  Answer Clarity
+                </span>
+
+                <strong id="analyticsClarity">
+                  —
+                </strong>
+
+              </div>
+
+              <div class="analytics-bar">
+
+                <span
+                  id="analyticsClarityBar"
+                  style="width:0%"
+                ></span>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+
+        <!-- AI INSIGHT -->
+
+        <div class="analytics-card mini-analytics">
+
+          <span class="panel-label">
+            AI INSIGHT
+          </span>
+
+          <div class="insight-icon">
+            ✦
+          </div>
+
+          <h3 id="insightTitle">
+            Awaiting your first analysis.
+          </h3>
+
+          <p id="insightText">
+
+            Complete an interview response and run
+            Gemini analysis to generate performance data.
+
+          </p>
+
+          <div class="insight-line"></div>
+
+          <span class="insight-status">
+            Evaluation connected
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =================================================
+           NEW — PERFORMANCE JOURNEY IMAGE
+      ================================================== -->
+
+      <div class="analytics-visual-showcase">
+
+        <div class="analytics-visual-copy">
+
+          <span class="panel-label">
+            PERFORMANCE JOURNEY
+          </span>
+
+          <h3>
+
+            Track your progress,
+
+            <span>
+              one interview at a time.
+            </span>
+
+          </h3>
+
+          <p>
+
+            Virexa AI turns your saved interview evaluations
+            into a clearer picture of your interview practice
+            and performance journey.
+
+          </p>
+
+
+          <div class="analytics-mini-points">
+
+
+            <div class="analytics-mini-point">
+
+              <span>
+                ✦
+              </span>
+
+              <div>
+
+                <strong>
+                  AI Score Tracking
+                </strong>
+
+                <small>
+                  Monitor your saved evaluation results.
+                </small>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="analytics-mini-point">
+
+              <span>
+                ↗
+              </span>
+
+              <div>
+
+                <strong>
+                  Improvement Journey
+                </strong>
+
+                <small>
+                  Compare your performance across attempts.
+                </small>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="analytics-mini-point">
+
+              <span>
+                ◉
+              </span>
+
+              <div>
+
+                <strong>
+                  Actionable Insights
+                </strong>
+
+                <small>
+                  Identify areas that need more practice.
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="analytics-visual-image">
+
+          <img
+            src="images/image10.png"
+            alt="Virexa AI performance improvement analytics"
+          />
+
+          <div class="analytics-image-overlay">
+
+            <span>
+              LIVE PERFORMANCE
+            </span>
+
+            <strong>
+              Improvement Journey
+            </strong>
+
+            <small>
+              Track your interview progress visually.
+            </small>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         SHOWCASE
+    ==================================================== -->
+
+    <section class="section showcase-section">
+
+      <div class="section-heading center">
+
+        <div class="section-tag">
+          PLATFORM EXPERIENCE
+        </div>
+
+        <h2>
+
+          Designed for a
+
+          <span>
+            focused interview experience.
+          </span>
+
+        </h2>
+
+      </div>
+
+
+
+      <div class="showcase-grid">
+
+
+        <div class="showcase-item showcase-large">
+
+          <img
+            src="images/image1.png"
+            alt="Virexa AI interview interface"
+          />
+
+          <div class="showcase-overlay">
+
+            <span>
+              01
+            </span>
+
+            <strong>
+              Interview Workspace
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="showcase-item">
+
+          <img
+            src="images/image2.png"
+            alt="Virexa AI analytics"
+          />
+
+          <div class="showcase-overlay">
+
+            <span>
+              02
+            </span>
+
+            <strong>
+              Performance Analytics
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="showcase-item">
+
+          <img
+            src="images/image3.png"
+            alt="Virexa AI feedback"
+          />
+
+          <div class="showcase-overlay">
+
+            <span>
+              03
+            </span>
+
+            <strong>
+              AI Feedback
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="showcase-item">
+
+          <img
+            src="images/image4.png"
+            alt="Virexa AI performance dashboard"
+          />
+
+          <div class="showcase-overlay">
+
+            <span>
+              04
+            </span>
+
+            <strong>
+              Performance Insights
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="showcase-item">
+
+          <img
+            src="images/image5.png"
+            alt="Virexa AI interview practice"
+          />
+
+          <div class="showcase-overlay">
+
+            <span>
+              05
+            </span>
+
+            <strong>
+              Practice Experience
+            </strong>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         HOW IT WORKS
+    ==================================================== -->
+
+    <section
+      class="section how-section"
+      id="how"
+    >
+
+      <div class="section-heading center">
+
+        <div class="section-tag">
+          05 / HOW IT WORKS
+        </div>
+
+        <h2>
+
+          Practice.
+
+          <span>
+            Analyse. Improve.
+          </span>
+
+        </h2>
+
+      </div>
+
+
+
+      <div class="steps">
+
+
+        <div class="step">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <div class="step-icon">
+            🎙
+          </div>
+
+          <h3>
+            Start Interview
+          </h3>
+
+          <p>
+            Select a difficulty level and start
+            your interview session.
+          </p>
+
+        </div>
+
+
+        <div class="step-connector"></div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <div class="step-icon">
+            💬
+          </div>
+
+          <h3>
+            Answer Naturally
+          </h3>
+
+          <p>
+            Speak your answer while speech recognition
+            converts it into text.
+          </p>
+
+        </div>
+
+
+        <div class="step-connector"></div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <div class="step-icon">
+            🧠
+          </div>
+
+          <h3>
+            Gemini Analysis
+          </h3>
+
+          <p>
+            Submit your response and receive structured
+            AI evaluation.
+          </p>
+
+        </div>
+
+
+        <div class="step-connector"></div>
+
+
+        <div class="step">
+
+          <div class="step-number">
+            04
+          </div>
+
+          <div class="step-icon">
+            ↗
+          </div>
+
+          <h3>
+            Improve
+          </h3>
+
+          <p>
+            Review actual scores, strengths and
+            improvement suggestions.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         REPORT
+    ==================================================== -->
+
+    <section
+      class="section report-section"
+      id="report"
+    >
+
+      <div class="report-card">
+
+        <div class="report-glow"></div>
+
+
+        <div class="report-content">
+
+          <div class="section-tag">
+            INTERVIEW REPORT
+          </div>
+
+          <h2>
+
+            Your interview history,
+
+            <span>
+              in one place.
+            </span>
+
+          </h2>
+
+          <p>
+
+            Review your saved interview attempts,
+            average score and latest performance.
+
+          </p>
+
+
+          <button
+            class="btn btn-primary"
+            id="fetchReportBtn"
+            type="button"
+          >
+
+            View Interview Report →
+
+          </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             REPORT IMAGE PREVIEW
+        ================================================== -->
+
+        <div
+          id="reportArea"
+          class="report-area"
+        >
+
+          <div class="report-placeholder report-image-preview">
+
+            <img
+              src="images/image9.png"
+              alt="Virexa AI interview performance report preview"
+            />
+
+            <div class="report-image-overlay">
+
+              <span class="preview-badge">
+                AI REPORT PREVIEW
+              </span>
+
+              <strong>
+                Your performance at a glance
+              </strong>
+
+              <small>
+                View your saved interview insights and scores.
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         FINAL CTA
+    ==================================================== -->
+
+    <section class="final-cta">
+
+      <div class="cta-glow"></div>
+
+
+      <div class="cta-content">
+
+        <div class="eyebrow">
+
+          <span class="eyebrow-dot"></span>
+
+          READY WHEN YOU ARE
+
+        </div>
+
+
+        <h2>
+
+          Build confidence
+
+          <span>
+            one answer at a time.
+          </span>
+
+        </h2>
+
+
+        <p>
+
+          Practice with Virexa AI.
+          Analyse your answers.
+          Improve your interview performance.
+
+        </p>
+
+
+        <button
+          class="btn btn-primary"
+          type="button"
+          onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})"
+        >
+
+          Start Practising →
+
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="footer">
+
+    <div class="footer-main">
+
+
+      <div class="footer-brand">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+
+            <span class="logo-orbit"></span>
+
+            <span class="logo-core">
+              V
+            </span>
+
+            <span class="logo-dot"></span>
+
+          </div>
+
+          <div class="brand-text">
+
+            <strong>
+              Virexa AI
+            </strong>
+
+            <small>
+              Intelligent Interview Coach
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <p>
+
+          Practice smarter.
+          Speak clearly.
+          Improve with structured AI-powered
+          interview feedback.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="footer-column">
+
+        <h4>
+          Platform
+        </h4>
+
+        <a href="#intelligence">
+          AI Intelligence
+        </a>
+
+        <a href="#demo">
+          Interview Room
+        </a>
+
+        <a href="#analytics">
+          Analytics
+        </a>
+
+        <a href="#report">
+          Reports
+        </a>
+
+      </div>
+
+
+
+      <div class="footer-column">
+
+        <h4>
+          Technology
+        </h4>
+
+        <span>
+          Gemini AI
+        </span>
+
+        <span>
+          Speech Recognition
+        </span>
+
+        <span>
+          Text Analysis
+        </span>
+
+        <span>
+          Intelligent Scoring
+        </span>
+
+      </div>
+
+
+
+      <div class="footer-column">
+
+        <h4>
+          Navigate
+        </h4>
+
+        <a href="#home">
+          Home
+        </a>
+
+        <a href="#how">
+          How It Works
+        </a>
+
+        <a href="#demo">
+          Start Interview
+        </a>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 Virexa AI
+      </span>
+
+      <div>
+
+        <span>
+          Built with AI
+        </span>
+
+        <span>
+          •
+        </span>
+
+        <span>
+          Gemini
+        </span>
+
+        <span>
+          •
+        </span>
+
+        <span>
+          Speech Recognition
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       SCRIPT
+  ====================================================== -->
+
   <script src="script.js"></script>
+
 </body>
+
 </html>
